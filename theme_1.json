@@ -35,58 +35,11 @@
         }
     },
 
-    "button":
+    "@centered":
     {
-        "colours":
-        {
-            "normal_text": "#FFFFFF",
-            "normal_bg":"#222222"
-        },
-        "font":
-         {
-             "name": "fira_code",
-             "size": "16",
-             "bold": "0",
-             "italic": "0",
-             "regular_resource": {
-                  "package": "data.fonts",
-                  "resource": "fira_code.ttf"
-             },
-             "bold_resource": {
-                  "package": "data.fonts",
-                  "resource": "fira_code-Bold.ttf"
-             },
-             "italic_resource": {
-                  "package": "data.fonts",
-                  "resource": "fira_code-Italic.ttf"
-             },
-             "bold_italic_resource": {
-                  "package": "data.fonts",
-                  "resource": "fira_code-BoldItalic.ttf"
-             }
-         },
         "misc":
         {
-            "shape": "rounded_rectangle",
-            "shape_corner_radius": "10",
-            "border_width": "0",
-            "padding": "10,10"
-        }
-    },
-
-    "@white_text_box":
-    {
-        "colours":
-        {
-            "dark_bg":"#EEEFEF",
-            "normal_border": "#884422"
-        },
-
-        "misc":
-        {
-            "border_width": "6",
-            "padding": "5,5"
-
+            "text_horiz_alignment": "center"
         }
     }
 }

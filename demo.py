@@ -22,13 +22,23 @@ def close_box(box):
         box.kill()
         
 def create_health_bar(max_health, health):
-    text = "|"
-    part = ceil(health/max_health * 10)
+    colors = ["#BFFF00", "#A4C639", "#C78B00", "#4d0b00"]
+    percent = health/max_health
+    color = colors[-1]
+    if percent >= 0.75:
+        color = colors[0]
+    elif percent >= 0.5:
+        color = colors[1]
+    elif percent >= 0.25:
+        color = colors[2]
+    
+    text = "<font color=" + color + ">|"
+    part = ceil(percent * 10)
     for _ in range(0, part):
         text += "-"
     for _ in range(0, 10 - part):
         text += " "
-    text += "|"
+    text += "|<font color=#FFFFFF>"
     return text
 
 def create_character_description(character):
@@ -36,6 +46,17 @@ def create_character_description(character):
 
 def create_battle_menu():
     return "<a href=\"menu1\">Attack</a><br><a href=\"menu2\">Inventory</a>"
+
+def create_start_box():
+    text1 = "<font color=#FF2937><b>Of Lords and Plagues</b><br><br>"
+    text2 = "<a>Click to Start!</a>"
+    return UITextBox(
+            "<font face=fira_code pixel_size=90>" + text1 +
+            "<font face=fira_code size=7>" + text2,
+            pygame.Rect(10, 10, 780, 580),
+            manager=ui_manager,
+            object_id= ObjectID(class_id="@centered",
+                                object_id="#text_box_2"))
 
 def create_screen_box(text):
     return UITextBox(
@@ -203,7 +224,10 @@ clock = pygame.time.Clock()
 ui_manager = UIManager(screen_size, 'theme_1.json', resource_loader=loader)
 ui_manager.preload_fonts([
                           {'name': 'fira_code', 'html_size': 5, 'style': 'regular'},
+                          {'name': 'fira_code', 'html_size': 7, 'style': 'regular'},
                           {'name': 'fira_code', 'html_size': 5, 'style': 'bold'},
+                          {'name': 'fira_code', 'point_size': 90, 'style': 'bold'},
+                          {'name': 'fira_code', 'point_size': 90, 'style': 'regular'},
                           {'name': 'fira_code', 'html_size': 5, 'style': 'italic'}
                           ])
 loader.start()
@@ -217,7 +241,7 @@ timer_1 = 0;
 timer_2 = 0;
 
 # Prepare the boxes
-description_box = create_screen_box(gamestate.description())
+description_box = None
 
 popup_box = None
 inventory_button = create_inventory_button()
@@ -227,12 +251,13 @@ battle_box = None
 party_boxes = [None, None, None, None]
 enemy_box = None
 
-
 map_button = create_map_button()
 map_image = pygame.image.load("map.jpg")
 map_image = pygame.transform.scale(map_image, (520, 520))
 reticle_image = pygame.image.load("reticle.png")
 reticle_image = pygame.transform.scale(reticle_image, (40, 40))
+
+title_box = create_start_box()
 
 # Game loop
 running = True
@@ -244,6 +269,10 @@ while running:
             running = False
 
         if event.type == UI_TEXT_BOX_LINK_CLICKED:
+            if event.ui_element is title_box:
+                title_box.kill()
+                create_screen_box(gamestate.description())
+            
             if event.ui_element is description_box:
                 choice_number = int(event.link_target) - 1
                 choice_type, message = gamestate.choose(choice_number) #unsafe boundaries
