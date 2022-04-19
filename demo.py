@@ -271,7 +271,7 @@ while running:
         if event.type == UI_TEXT_BOX_LINK_CLICKED:
             if event.ui_element is title_box:
                 title_box.kill()
-                create_screen_box(gamestate.description())
+                description_box = create_screen_box(gamestate.description())
             
             if event.ui_element is description_box:
                 choice_number = int(event.link_target) - 1
