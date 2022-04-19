@@ -1,10 +1,10 @@
 COORDS = {
-    "Start": (0, 0),
-    "The King": (100, 100),
-    "Hills": (100, 300),
-    "Narrow Path": (123, 321),
-    "Fork": (200, 200),
-    "The Tower": (323, 23),
-    "The Hall": (257, 293),
-    "The End": (510, 510)
+    "Start": (120, 340),
+    "The King": (170, 370),
+    "Hills": (370, 350),
+    "Narrow Path": (210, 275),
+    "Fork": (400, 475),
+    "The Tower": (240, 160),
+    "The Hall": (240, 50),
+    "The End": (444, 70)
 }
